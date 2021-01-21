@@ -248,8 +248,8 @@
         autocmd!
         autocmd BufNew * set relativenumber
         autocmd BufNewFile * set relativenumber
-        autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-        autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
+        autocmd BufEnter,FocusGained,InsertLeave,WinEnter * set relativenumber
+        autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * set norelativenumber
     augroup END
 
 " Formatting {
