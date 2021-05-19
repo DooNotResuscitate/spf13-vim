@@ -55,6 +55,22 @@
         " across (heterogeneous) systems easier.
         if WINDOWS()
           set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+          
+          " Be nice and check for multi_byte even if the config requires
+          " multi_byte support most of the time
+          if has("multi_byte")
+            " Windows cmd.exe still uses cp850. If Windows ever moved to
+            " Powershell as the primary terminal, this would be utf-8
+            set termencoding=cp850
+            " Let Vim use utf-8 internally, because many scripts require this
+            set encoding=utf-8
+            setglobal fileencoding=utf-8
+            " Windows has traditionally used cp1252, so it's probably wise to
+            " fallback into cp1252 instead of eg. iso-8859-15.
+            " Newer Windows files might contain utf-8 or utf-16 LE so we might
+            " want to try them first.
+            set fileencodings=ucs-bom,utf-8,utf-16le,cp1252,iso-8859-15
+          endif
         endif
     " }
     
@@ -155,35 +171,7 @@
             endif
         endfunction
 
-        augroup resCur
-            autocmd!
-            autocmd BufWinEnter * call ResCur()
-        augroup END
-    endif
-
-    " Setting up the directories {
-        set backup                  " Backups are nice ...
-        if has('persistent_undo')
-            set undofile                " So is persistent undo ...
-            set undolevels=1000         " Maximum number of changes that can be undone
-            set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
-        endif
-
-        " To disable views add the following to your .vimrc.before.local file:
-        "   let g:spf13_no_views = 1
-        if !exists('g:spf13_no_views')
-            " Add exclusions to mkview and loadview
-            " eg: *.*, svn-commit.tmp
-            let g:skipview_files = [
-                \ '\[example pattern\]'
-                \ ]
-        endif
-    " }
-
-" }
-
-" Vim UI {
-
+        augroup resCur autocmd! autocmd BufWinEnter * call ResCur() augroup END endif " Setting up the directories { set backup                  " Backups are nice ... if has('persistent_undo') set undofile                " So is persistent undo ... set undolevels=1000         " Maximum number of changes that can be undone set undoreload=10000        " Maximum number lines to save for undo on a buffer reload endif " To disable views add the following to your .vimrc.before.local file: let g:spf13_no_views = 1 if !exists('g:spf13_no_views') " Add exclusions to mkview and loadview eg: *.*, svn-commit.tmp let g:skipview_files = [ \ '\[example pattern\]' \ ] endif " } " } " Vim UI { 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         let g:solarized_termcolors=256
         let g:solarized_termtrans=1

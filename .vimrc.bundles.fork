@@ -29,6 +29,8 @@
 " Editor Enhance {
     Plug 'kshenoy/vim-signature'
     Plug 'dominickng/fzf-session.vim'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+    Plug 'junegunn/fzf.vim'
 " }
 
 " Web Stuff {

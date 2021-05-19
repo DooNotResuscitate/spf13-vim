@@ -21,58 +21,12 @@
 "   You can find the original soure at http://spf13.com 
 " }
 
-" Environment {
-
-    " Basics {
-        set nocompatible        " Must be first line
-        set background=dark     " Assume a dark background
-    " }
-
-    " Windows Compatible {
-        " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
-        " across (heterogeneous) systems easier.
-        if has('win32') || has('win64')
-          set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-
-          " Be nice and check for multi_byte even if the config requires
-          " multi_byte support most of the time
-          if has("multi_byte")
-            " Windows cmd.exe still uses cp850. If Windows ever moved to
-            " Powershell as the primary terminal, this would be utf-8
-            set termencoding=cp850
-            " Let Vim use utf-8 internally, because many scripts require this
-            set encoding=utf-8
-            setglobal fileencoding=utf-8
-            " Windows has traditionally used cp1252, so it's probably wise to
-            " fallback into cp1252 instead of eg. iso-8859-15.
-            " Newer Windows files might contain utf-8 or utf-16 LE so we might
-            " want to try them first.
-            set fileencodings=ucs-bom,utf-8,utf-16le,cp1252,iso-8859-15
-          endif
-        endif
-    " }
-
-" }
-
 call plug#begin('~/.vim/bundle')
 " Bundles {
 
     " Deps {
         Plug 'MarcWeber/vim-addon-mw-utils'
         Plug 'tomtom/tlib_vim'
-        if executable('ag') || executable('rg')
-            Plug 'mileszs/ack.vim'
-            if executable('ag')
-                let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-            elseif executable('rg')
-                let g:ackprg = 'rg --vimgrep --no-heading'
-            endif
-        elseif executable('ack-grep')
-            let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-            Plug 'mileszs/ack.vim'
-        elseif executable('ack')
-            Plug 'mileszs/ack.vim'
-        endif
     " }
 
     " In your .vimrc.before.local file
@@ -90,13 +44,10 @@ call plug#begin('~/.vim/bundle')
         if count(g:spf13_bundle_groups, 'general')
             Plug 'scrooloose/nerdtree'
             Plug 'altercation/vim-colors-solarized'
-            Plug 'spf13/vim-colors'
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
             Plug 'jiangmiao/auto-pairs'
-            Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-            Plug 'junegunn/fzf.vim'
             Plug 'mg979/vim-visual-multi', {'branch': 'master'}
             Plug 'vim-scripts/matchit.zip'
             if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
@@ -111,15 +62,10 @@ call plug#begin('~/.vim/bundle')
             Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
             Plug 'jistr/vim-nerdtree-tabs'
-            Plug 'flazz/vim-colorschemes'
             Plug 'mbbill/undotree'
             Plug 'Yggdroot/indentLine'
-            if !exists('g:spf13_no_views')
-                Plug 'vim-scripts/restore_view.vim'
-            endif
             Plug 'mhinz/vim-signify'
             Plug 'tpope/vim-abolish'
-            Plug 'osyo-manga/vim-over'
             Plug 'kana/vim-textobj-user'
             Plug 'kana/vim-textobj-indent'
             Plug 'gcmt/wildfire.vim'
