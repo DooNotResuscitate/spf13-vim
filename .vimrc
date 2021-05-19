@@ -172,6 +172,7 @@
         endfunction
 
         augroup resCur autocmd! autocmd BufWinEnter * call ResCur() augroup END endif " Setting up the directories { set backup                  " Backups are nice ... if has('persistent_undo') set undofile                " So is persistent undo ... set undolevels=1000         " Maximum number of changes that can be undone set undoreload=10000        " Maximum number lines to save for undo on a buffer reload endif " To disable views add the following to your .vimrc.before.local file: let g:spf13_no_views = 1 if !exists('g:spf13_no_views') " Add exclusions to mkview and loadview eg: *.*, svn-commit.tmp let g:skipview_files = [ \ '\[example pattern\]' \ ] endif " } " } " Vim UI { 
+    endif
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         let g:solarized_termcolors=256
         let g:solarized_termtrans=1
