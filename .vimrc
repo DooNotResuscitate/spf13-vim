@@ -186,8 +186,10 @@
     endif 
     " To disable views add the following to your .vimrc.before.local file: let g:spf13_no_views = 1 
     if !exists('g:spf13_no_views') " Add exclusions to mkview and loadview eg: *.*, svn-commit.tmp 
-        let g:skipview_files = [ \ '\[example pattern\]' \ ] 
-    endif 
+        let g:skipview_files = [
+                    \ '\[example pattern\]' 
+        \]
+    endif
      " } 
 " }
 " Vim UI { 
