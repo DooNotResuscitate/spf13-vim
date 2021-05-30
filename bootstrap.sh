@@ -20,7 +20,7 @@ app_name='spf13-vim'
 [ -z "$REPO_URI" ] && REPO_URI='https://github.com/jtuz/spf13-vim.git'
 [ -z "$REPO_BRANCH" ] && REPO_BRANCH='4.0'
 debug_mode='0'
-fork_maintainer='0'
+fork_maintainer='1'
 [ -z "$VIM_PLUG_URI" ] && VIM_PLUG_URI="https://github.com/junegunn/vim-plug.git"
 
 ############################  BASIC SETUP TOOLS

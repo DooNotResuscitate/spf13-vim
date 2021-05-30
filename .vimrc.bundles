@@ -64,7 +64,11 @@ call plug#begin('~/.vim/bundle')
             Plug 'jistr/vim-nerdtree-tabs'
             Plug 'mbbill/undotree'
             Plug 'Yggdroot/indentLine'
-            Plug 'mhinz/vim-signify'
+            if has('nvim') || has('patch-8.0.902')
+                Plug 'mhinz/vim-signify'
+            else
+                Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+            endif
             Plug 'tpope/vim-abolish'
             Plug 'kana/vim-textobj-user'
             Plug 'kana/vim-textobj-indent'

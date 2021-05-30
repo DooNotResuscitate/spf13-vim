@@ -118,9 +118,9 @@
     endfunction
     noremap <leader>bg :call ToggleBG()<CR>
 
-    " if !has('gui')
-        "set term=$TERM          " Make arrow and other keys work
-    " endif
+    if !has('gui')
+        set term=$TERM          " Make arrow and other keys work
+    endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
@@ -642,6 +642,7 @@
 
     " Sessions {
         if isdirectory(expand("~/.vim/bundle/fzf-session.vim"))
+            let g:fzf_session_path = '~/.vim/sessions'
             nmap <leader>sl :Sessions<CR>
             nmap <leader>sq :SQuit<CR>
         endif
@@ -668,6 +669,7 @@
 
     " FZF {
         if isdirectory(expand("~/.vim/bundle/fzf.vim/"))
+            " let g:fzf_layout = { 'down': '~40%' }
             let g:fzf_command_prefix = 'Fzf'
             " [Buffers] Jump to the existing window if possible
             let g:fzf_buffers_jump = 1
