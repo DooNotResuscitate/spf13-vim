@@ -9,18 +9,19 @@
 
 spf13-vim is a distribution of vim plugins and resources for Vim, Gvim and [MacVim].
 
-It is a good starting point for anyone intending to use VIM for development running equally well on Windows, Linux, \*nix and Mac.
+It is a good starting point for anyone intending to use VIM for development running equally well on Windows(through WSL), Linux, \*nix and Mac.
 
 The distribution is completely customisable using a `~/.vimrc.local`, `~/.vimrc.bundles.local`, and `~/.vimrc.before.local` Vim RC files.
 
 ![spf13-vim image][spf13-vim-img]
 
-Unlike traditional VIM plugin structure, which similar to UNIX throws all files into common directories, making updating or disabling plugins a real mess, spf13-vim 3 uses the [Plug] plugin management system to have a well organized vim directory (Similar to mac's app folders). Plug also ensures that the latest versions of your plugins are installed and makes it easy to keep them up to date.
+Unlike traditional VIM plugin structure, which similar to UNIX throws all files into common directories, making updating or disabling plugins a real mess, spf13-vim 3 uses the 
+[Plug] plugin management system to have a well organized vim directory (Similar to mac's app folders). Plug also ensures that the latest versions of your plugins are installed and makes it easy to keep them up to date.
 
 This fork includes `.vim_plug.unplug` within `.vimrc` wich has the UnPlug command, so that the user can remove unwanted plugins based from the default list, just like the old Vundle.
 for example, to replace [Syntastic] with [ALE]
 
-In $HOME/.vimrc.bundles.local  
+In `$HOME/.vimrc.bundles.local`
 ````
 Plug 'w0rp/ALE'
 UnPlug 'syntastic'
@@ -33,7 +34,8 @@ vim +PlugInstall +PlugClean!
 
 Great care has been taken to ensure that each plugin plays nicely with others, and optional configuration has been provided for what we believe is the most efficient use.
 
-Lastly (and perhaps, most importantly) It is completely cross platform. It works well on Windows, Linux and OSX without any modifications or additional configurations. If you are using [MacVim] or Gvim additional features are enabled. So regardless of your environment just clone and run.
+Lastly (and perhaps, most importantly) It is completely cross platform. It works well on Windows(through WSL), Linux and OSX without any modifications or additional configurations. 
+If you are using [MacVim] or Gvim additional features are enabled. So regardless of your environment just clone and run.
 
 # Installation
 ## Requirements
@@ -43,7 +45,8 @@ To make all the plugins work, you need vim with lua.
 
 ## Linux, \*nix, Mac OSX Installation
 
-The easiest way to install spf13-vim is to use our [automatic installer](https://bit.ly/2H31LMx) by simply copying and pasting the following line into a terminal. This will install spf13-vim and backup your existing vim configuration. If you are upgrading from a prior version (before 4.0) this is also the recommended installation.
+The easiest way to install spf13-vim is to use our [automatic installer](https://bit.ly/2H31LMx) by simply copying and pasting the following line into a terminal. 
+This will install spf13-vim and backup your existing vim configuration. If you are upgrading from a prior version (before 4.0) this is also the recommended installation.
 
 *Requires Git 1.7+ and Vim 7.3+*
 
@@ -58,72 +61,17 @@ If you have a bash-compatible shell you can run the script directly:
     sh <(curl  https://bit.ly/2H31LMx -L)
 ```
 
+For better compatibility between neovim and SPF-13 there are must be created the follow symlinks:
+
+```sh
+ln -s ~/.vimrc ~/.config/nvim/init.vim
+ln -s ~/.vim ~/.config/nvim/.vim
+ln -s ~/.vim/autoload ~/.local/share/nvim/site/autoload
+```
+
 ## Installing on Windows
 
-**WARNING!** this fork is not yet compatible with the follow Windows installation instructions, the below instructions is for the original distribution from Steve Francia's
-
-On Windows and \*nix [Git] and [Curl] are required. Also, if you haven't done so already, you'll need to install [Vim].
-The quickest option to install all three dependencies ([Git], [Curl], [Vim] and [spf13-vim]) is via [Chocolatey] NuGet. After installing [Chocolatey], execute the following commands on the _command prompt_:
-
-    C:\> choco install spf13-vim
-
-_Note: The [spf13-vim package] will install Vim also!_
-
-If you want to install [msysgit], [Curl] and [spf13-vim] individually, follow the directions below.
-
-### Installing dependencies
-
-#### Install [Vim]
-
-After the installation of Vim you must add a new directory to your environment variables path to make it work with the script installation of spf13.
-
-Open Vim and write the following command, it will show the installed directory:
-
-    :echo $VIMRUNTIME
-    C:\Program Files (X86)\Vim\vim74
-
-Then you need to add it to your environment variable path. After that try execute `vim` within command prompt (press Win-R, type `cmd`, press Enter) and you’ll see the default vim page.
-
-#### Install [msysgit]
-
-After installation try running `git --version` within _command prompt_ (press Win-R,  type `cmd`, press Enter) to make sure all good:
-
-    C:\> git --version
-    git version 1.7.4.msysgit.0
-
-#### Setup [Curl]
-_Instructions blatently copied from vundle readme_
-Installing Curl on Windows is easy as [Curl] is bundled with [msysgit]!
-But before it can be used with [Plug] it's required make `curl` run in _command prompt_.
-The easiest way is to create `curl.cmd` with [this content](https://gist.github.com/912993)
-
-    @rem Do not use "echo off" to not affect any child calls.
-    @setlocal
-
-    @rem Get the abolute path to the parent directory, which is assumed to be the
-    @rem Git installation root.
-    @for /F "delims=" %%I in ("%~dp0..") do @set git_install_root=%%~fI
-    @set PATH=%git_install_root%\bin;%git_install_root%\mingw\bin;%PATH%
-
-    @if not exist "%HOME%" @set HOME=%HOMEDRIVE%%HOMEPATH%
-    @if not exist "%HOME%" @set HOME=%USERPROFILE%
-
-    @curl.exe %*
-
-
-And copy it to `C:\Program Files\Git\cmd\curl.cmd`, assuming [msysgit] was installed to `c:\Program Files\Git`
-
-to verify all good, run:
-
-    C:\> curl --version
-    curl 7.21.1 (i686-pc-mingw32) libcurl/7.21.1 OpenSSL/0.9.8k zlib/1.2.3
-    Protocols: dict file ftp ftps http https imap imaps ldap ldaps pop3 pop3s rtsp smtp smtps telnet tftp
-    Features: Largefile NTLM SSL SSPI libz
-
-
-#### Installing spf13-vim on Windows
-
-The easiest way is to download and run the spf13-vim-windows-install.cmd file. Remember to run this file in **Administrator Mode** if you want the symlinks to be created successfully.
+**WARNING!** this fork is not yet compatible whit the Windows installation, since Windows has WSL I higly recomend use the \*Nix instalation throgh WSL
 
 ## Updating to the latest version
 The simpliest (and safest) way to update is to simply rerun the installer. It will completely and non destructively upgrade to the latest version.
@@ -161,7 +109,7 @@ It fixes many of the inconveniences of vanilla vim including
  * Setup a solid set of settings for Formatting (change to meet your needs)
  * Setup the interface to take advantage of vim's features including
    * omnicomplete
-   * line numbers
+   * relative line numbers
    * syntax highlighting
    * A better ruler & status line
    * & more
@@ -175,7 +123,7 @@ customizations.
 For example, to override the default color schemes:
 
 ```bash
-    echo colorscheme ir_black  >> ~/.vimrc.local
+    echo colorscheme srcery  >> ~/.vimrc.local
 ```
 
 ### Before File
@@ -243,7 +191,8 @@ spf13-vim contains a curated set of popular vim plugins, colors, snippets and sy
 
 Create `~/.vimrc.bundles.local` for any additional bundles.
 
-To add a new bundle, just add one line for each bundle you want to install. The line should start with the word "Plug" followed by a string of either the vim.org project name or the githubusername/githubprojectname. For example, the github project [spf13/vim-colors](https://github.com/spf13/vim-colors) can be added with the following command
+To add a new bundle, just add one line for each bundle you want to install. The line should start with the word "Plug" followed by a string of either the vim.org project 
+name or the githubusername/githubprojectname. For example, the github project [spf13/vim-colors](https://github.com/spf13/vim-colors) can be added with the following command
 
 ```bash
     echo Plug \'spf13/vim-colors\' >> ~/.vimrc.bundles.local
@@ -290,18 +239,21 @@ NERDTree is a file explorer plugin that provides "project drawer"
 functionality to your vim editing.  You can learn more about it with
 `:help NERDTree`.
 
-**QuickStart** Launch using `<Leader>e`.
+**QuickStart** Launch using `<leader>ft`.
 
 **Customizations**:
 
-* Use `<C-E>` to toggle NERDTree
+* Use `<leader>ft` to toggle NERDTree
 * Use `<leader>e` or `<leader>nt` to load NERDTreeFind which opens NERDTree where the current file is located.
 * Hide clutter ('\.pyc', '\.git', '\.hg', '\.svn', '\.bzr')
 * Treat NERDTree more like a panel than a split.
 
 ## [FZF]
-FZF replaces the [ctrlp] plugin with a fuzzy finder and asynchronous plugin. It provides an intuitive and fast mechanism to load files from the file system (with regex and fuzzy find), from open buffers, and from recently used files, and many
+FZF replaces the [ctrlp] plugin with a fuzzy finder and asynchronous plugin. It provides an intuitive 
+and fast mechanism to load files from the file system (with regex and fuzzy find), from open buffers, and from recently used files, and many
 options with a great experience while you are using FZF within vim.
+
+![spf13-vim image][spf13-vim-fzf]
 
 **QuickStart** Launch using `<leader>ff`.
 
@@ -335,7 +287,8 @@ filetype. View `help :NERDCommenter` or checkout my post on [NERDCommenter](http
 **QuickStart** Toggle comments using `<Leader>c<space>` in Visual or Normal mode.
 
 ## [deoplete]
-Deoplete is the abbreviation of "dark powered neo-completion". It provides an extensible and asynchronous completion framework for neovim/Vim8. Deoplete replaces the old Neocomplete plugin, this plugin also has support for snippets
+Deoplete is the abbreviation of "dark powered neo-completion". It provides an extensible and asynchronous 
+completion framework for neovim/Vim8. Deoplete replaces the old Neocomplete plugin, this plugin also has support for snippets
 It can complete simulatiously from the dictionary, buffer, omnicomplete and snippet.
 
 **QuickStart** Just start typing, it will autocomplete where possible
@@ -348,27 +301,10 @@ It can complete simulatiously from the dictionary, buffer, omnicomplete and snip
 
 ![neocomplete image][autocomplete-img]
 
-## [YouCompleteMe]
-
-YouCompleteMe is another amazing completion engine. It is slightly more involved to set up as it contains a binary component that the user needs to compile before it will work. As a result of this however it is very fast.
-
-To enable YouCompleteMe add `youcompleteme` to your list of groups by overriding it in your `.vimrc.before.local` like so: `let g:spf13_bundle_groups=['general', 'programming', 'misc', 'scala', 'youcompleteme']` This is just an example. Remember to choose the other groups you want here.
-
-Once you have done this you will need to get Plug to grab the latest code from git. You can do this by calling `:PlugInstall!`. You should see YouCompleteMe in the list.
-
-You will now have the code in your bundles directory and can proceed to compile the core. Change to the directory it has been downloaded to. If you have a vanilla install then `cd ~/.spf13-vim-3/.vim/bundle/YouCompleteMe/` should do the trick. You should see a file in this directory called install.sh. There are a few options to consider before running the installer:
-
-  * Do you want clang support (if you don't know what this is then you likely don't need it)?
-    * Do you want to link against a local libclang or have the installer download the latest for you?
-  * Do you want support for c# via the omnisharp server?
-
-The plugin is well documented on the site linked above. Be sure to give that a read and make sure you understand the options you require.
-
-For java users wanting to use eclim be sure to add `let g:EclimCompletionMethod = 'omnifunc'` to your .vimrc.local.
-
 ## [ALE]
 
-ALE (Asynchronous Lint Engine) is a plugin providing linting (syntax checking and semantic errors) in NeoVim 0.2.0+ and Vim 8 while you edit your text files, and acts as a Vim [Language Server Protocol client](https://langserver.org/).
+ALE (Asynchronous Lint Engine) is a plugin providing linting (syntax checking and semantic errors) in NeoVim 0.2.0+ and Vim 8 while 
+you edit your text files, and acts as a Vim [Language Server Protocol client](https://langserver.org/).
 by default language server feature is disabled, to enable you should set this into your `.vimrc.local` settings.
 
 ```
@@ -421,13 +357,6 @@ PIV provides:
  * Full PHP documentation manual (hit K on any function for full docs)
 
 ![php vim itegration image][phpmanual-img]
-
-## [Ack.vim]
-
-Ack.vim uses ack to search inside the current directory for a pattern.
-You can learn more about it with `:help Ack`
-
-**QuickStart** :Ack
 
 ## [Tabularize]
 
@@ -488,27 +417,6 @@ spf13-vim ships with a few additional syntaxes:
 * Twig
 * Git commits (set your `EDITOR` to `mvim -f`)
 
-## Amazing Colors
-
-spf13-vim includes [solarized] and [spf13 vim color pack](https://github.com/spf13/vim-colors/):
-
-* ir_black
-* molokai
-* peaksea
-
-Use `:color molokai` to switch to a color scheme.
-
-Terminal Vim users will benefit from solarizing their terminal emulators and setting solarized support to 16 colors:
-
-    let g:solarized_termcolors=16
-    color solarized
-
-Terminal emulator colorschemes:
-
-* http://ethanschoonover.com/solarized (iTerm2, Terminal.app)
-* https://github.com/phiggins/konsole-colors-solarized (KDE Konsole)
-* https://github.com/sigurdga/gnome-terminal-colors-solarized (Gnome Terminal)
-
 ## Snippets
 
 It also contains a very complete set of [snippets](https://github.com/spf13/snipmate-snippets) for use with snipmate or [deoplete].
@@ -547,28 +455,24 @@ Here's some tips if you've never used VIM before:
 [Git]:http://git-scm.com
 [Curl]:http://curl.haxx.se
 [Vim]:http://www.vim.org/download.php#pc
-[msysgit]:http://msysgit.github.io
-[Chocolatey]: http://chocolatey.org/
-[spf13-vim package]: https://chocolatey.org/packages/spf13-vim
 [MacVim]:http://code.google.com/p/macvim/
-[spf13-vim]:https://github.com/spf13/spf13-vim
-[contributors]:https://github.com/spf13/spf13-vim/contributors
+[spf13-vim]:https://github.com/jtuz/spf13-vim
+[contributors]:https://github.com/jtuzp/spf13-vim/contributors
 
 [Plug]:https://github.com/junegunn/vim-plug
 [PIV]:https://github.com/spf13/PIV
 [NERDCommenter]:https://github.com/scrooloose/nerdcommenter
 [Undotree]:https://github.com/mbbill/undotree
 [NERDTree]:https://github.com/scrooloose/nerdtree
-[ctrlp]:https://github.com/kien/ctrlp.vim
+[FZF]:https://github.com/junegunn/fzf
 [solarized]:https://github.com/altercation/vim-colors-solarized
 [deoplete]:https://github.com/Shougo/deoplete.nvim
 [Fugitive]:https://github.com/tpope/vim-fugitive
 [Surround]:https://github.com/tpope/vim-surround
 [Tagbar]:https://github.com/majutsushi/tagbar
 [Syntastic]:https://github.com/scrooloose/syntastic
-[ALE]:(https://github.com/w0rp/ale)
+[ALE]:https://github.com/w0rp/ale
 [vim-easymotion]:https://github.com/Lokaltog/vim-easymotion
-[YouCompleteMe]:https://github.com/Valloric/YouCompleteMe
 [Matchit]:http://www.vim.org/scripts/script.php?script_id=39
 [Tabularize]:https://github.com/godlygeek/tabular
 [EasyMotion]:https://github.com/Lokaltog/vim-easymotion
@@ -576,13 +480,13 @@ Here's some tips if you've never used VIM before:
 [Powerline]:https://github.com/lokaltog/powerline
 [Powerline Fonts]:https://github.com/Lokaltog/powerline-fonts
 [AutoClose]:https://github.com/spf13/vim-autoclose
-[Ack.vim]:https://github.com/mileszs/ack.vim
 
-[spf13-vim-img]:https://i.imgur.com/UKToY.png
-[spf13-vimrc-img]:https://i.imgur.com/kZWj1.png
-[autocomplete-img]:https://i.imgur.com/90Gg7.png
+[spf13-vim-img]:https://i.imgur.com/xBqLjA6.png
+[spf13-vimrc-img]:https://i.imgur.com/0VrkBcv.png
+[spf13-vim-fzf]:https://i.imgur.com/WQjWcPt.png
+[autocomplete-img]:https://i.imgur.com/JF5NOG6.png
 [tagbar-img]:https://i.imgur.com/cjbrC.png
-[fugitive-img]:https://i.imgur.com/4NrxV.png
+[fugitive-img]:https://i.imgur.com/3FpEf27.png
 [nerdtree-img]:https://i.imgur.com/9xIfu.png
 [phpmanual-img]:https://i.imgur.com/c0GGP.png
 [easymotion-img]:https://i.imgur.com/ZsrVL.png
