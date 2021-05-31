@@ -18,7 +18,7 @@ The distribution is completely customisable using a `~/.vimrc.local`, `~/.vimrc.
 Unlike traditional VIM plugin structure, which similar to UNIX throws all files into common directories, making updating or disabling plugins a real mess, spf13-vim 3 uses the 
 [Plug] plugin management system to have a well organized vim directory (Similar to mac's app folders). Plug also ensures that the latest versions of your plugins are installed and makes it easy to keep them up to date.
 
-This fork includes `.vim_plug.unplug` within `.vimrc` wich has the UnPlug command, so that the user can remove unwanted plugins based from the default list, just like the old Vundle.
+This fork includes `.vim_plug.unplug` within `.vimrc` which has the UnPlug command, so that the user can remove unwanted plugins based from the default list, just like the old Vundle.
 for example, to replace [Syntastic] with [ALE]
 
 In `$HOME/.vimrc.bundles.local`
@@ -41,7 +41,7 @@ If you are using [MacVim] or Gvim additional features are enabled. So regardless
 ## Requirements
 To make all the plugins work, you need vim with lua.
 
-**Note:** deoplete requires Neovim(0.3.0+, and of course **latest** is recomended) or Vim8.1 with python 3.6.1+ and timers enabled.
+**Note:** deoplete requires Neovim(0.3.0+, and of course **latest** is recommended) or Vim8.1 with python 3.6.1+ and timers enabled.
 
 ## Linux, \*nix, Mac OSX Installation
 
@@ -71,10 +71,10 @@ ln -s ~/.vim/autoload ~/.local/share/nvim/site/autoload
 
 ## Installing on Windows
 
-**WARNING!** this fork is not yet compatible whit the Windows installation, since Windows has WSL I higly recomend use the \*Nix instalation throgh WSL
+**WARNING!** this fork is not yet compatible whit the Windows installation, since Windows has WSL I highly recommend use the \*Nix installation through WSL
 
 ## Updating to the latest version
-The simpliest (and safest) way to update is to simply rerun the installer. It will completely and non destructively upgrade to the latest version.
+The simplest (and safest) way to update is to simply rerun the installer. It will completely and non destructively upgrade to the latest version.
 
 ```bash
 
