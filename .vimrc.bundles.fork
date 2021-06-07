@@ -48,4 +48,5 @@
     Plug 'mg979/vim-xtabline'
     Plug 'NLKNguyen/papercolor-theme'
     Plug 'srcery-colors/srcery-vim'
+    Plug 'morhetz/gruvbox'
 " }
